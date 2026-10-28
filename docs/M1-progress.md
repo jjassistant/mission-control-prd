@@ -25,3 +25,15 @@
 3. Build `/` Command Center page rendering the JSON as a simple list grouped by area
 
 Est. remaining for M1 close: 1 focused session (~2-3 hrs)
+
+## Build note (2026-10-28)
+`better-sqlite3` native module failed to compile via npm install on this host
+(node-gyp build error, Node v26 on this machine vs. the package's native binding
+target). SQL query logic itself was verified correct via the `sqlite3` CLI
+directly against the live DB — confirmed correct columns, correct filters
+(type=0, trashed=0, todayIndex IS NOT NULL), real rows returned.
+
+Fix for next session: pin Node to an LTS version node-gyp supports cleanly
+(or swap to `node:sqlite` built-in / `sql.js` WASM driver to dodge native
+compilation entirely — `node:sqlite` is stable in Node 22+ and needs zero
+native build step, likely the better choice here).
